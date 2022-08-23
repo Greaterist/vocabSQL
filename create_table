@@ -1,0 +1,54 @@
+CREATE TABLE russian (
+  id SERIAL PRIMARY KEY,
+  word VARCHAR(30) NOT NULL,
+  added_by_id INT NOT NULL,
+  added_at TIMESTAMP
+);
+
+CREATE TABLE english (
+  id SERIAL PRIMARY KEY,
+  word VARCHAR(30) NOT NULL,
+  added_by_id INT NOT NULL,
+  added_at TIMESTAMP
+);
+
+CREATE TABLE french (
+  id SERIAL PRIMARY KEY,
+  word VARCHAR(30) NOT NULL,
+  added_by_id INT NOT NULL,
+  added_at TIMESTAMP
+);
+
+CREATE TABLE word_links(
+  id SERIAL PRIMARY KEY,
+  from_word_id INT NOT NULL,
+  from_word_lang VARCHAR(30) NOT NULL,
+  to_word_id INT NOT NULL,
+  to_word_lang VARCHAR(30) NOT NULL,
+  linked_by_id INT NOT NULL,
+  linked_at TIMESTAMP
+)
+
+CREATE TABLE links_rating(
+  id SERIAL PRIMARY KEY,
+  link_id INT NOT NULL,
+  is_like BOOLEAN NOT NULL,
+  added_by_id INT NOT NULL,
+  added_at TIMESTAMP
+)
+
+CREATE TABLE links_comments(
+  id SERIAL PRIMARY KEY,
+  link_id INT NOT NULL,
+  added_by_id INT NOT NULL,
+  added_at TIMESTAMP
+)
+
+CREATE TABLE links_comments_rating(
+  id SERIAL PRIMARY KEY,
+  links_comments_id INT NOT NULL,
+  is_like BOOLEAN NOT NULL,
+  added_by_id INT NOT NULL,
+  added_at TIMESTAMP
+)
+
