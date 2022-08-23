@@ -52,3 +52,18 @@ CREATE TABLE links_comments_rating(
   added_at TIMESTAMP
 )
 
+CREATE TABLE users(
+  id SERIAL PRIMARY KEY,
+  email VARCHAR(30) NOT NULL,
+  hash_password VARCHAR(30) NOT NULL,
+  added_at TIMESTAMP
+)
+
+CREATE TABLE profiles(
+  id SERIAL PRIMARY KEY,
+  users_id INT NOT NULL,
+  username VARCHAR(30),
+  contacts //CUSTOM,
+  info VARCHAR(130)
+)
+
