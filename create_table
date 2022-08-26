@@ -26,7 +26,7 @@ CREATE TABLE word_links(
   to_word_id INT NOT NULL,
   to_word_lang VARCHAR(30) NOT NULL,
   linked_by_id INT NOT NULL,
-  link_status INT DEFAULT 1 NOT NULL,
+  link_status_id INT DEFAULT 1 NOT NULL,
   linked_at TIMESTAMP NOT NULL
 );
 
