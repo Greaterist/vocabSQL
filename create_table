@@ -41,8 +41,7 @@ CREATE TABLE word_links(
 
 -- оценка пользователями перевода  is_like BOOLEAN проверяет положительная оценка или отрицательная
 CREATE TABLE links_rating(
-  id SERIAL PRIMARY KEY,
-  link_id INT NOT NULL,
+  link_id INT NOT NULL PRIMARY KEY,
   is_like BOOLEAN NOT NULL,
   added_by_id INT NOT NULL,
   added_at TIMESTAMP NOT NULL
@@ -58,8 +57,7 @@ CREATE TABLE links_comments(
 
 -- оценки для комментариев
 CREATE TABLE links_comments_rating(
-  id SERIAL PRIMARY KEY,
-  links_comments_id INT NOT NULL,
+  links_comments_id INT NOT NULL PRIMARY KEY,
   is_like BOOLEAN NOT NULL,
   added_by_id INT NOT NULL,
   added_at TIMESTAMP NOT NULL
