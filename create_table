@@ -2,21 +2,21 @@ CREATE TABLE russian (
   id SERIAL PRIMARY KEY,
   word VARCHAR(30) NOT NULL,
   added_by_id INT NOT NULL,
-  added_at TIMESTAMP
+  added_at TIMESTAMP NOT NULL
 );
 
 CREATE TABLE english (
   id SERIAL PRIMARY KEY,
   word VARCHAR(30) NOT NULL,
   added_by_id INT NOT NULL,
-  added_at TIMESTAMP
+  added_at TIMESTAMP NOT NULL
 );
 
 CREATE TABLE french (
   id SERIAL PRIMARY KEY,
   word VARCHAR(30) NOT NULL,
   added_by_id INT NOT NULL,
-  added_at TIMESTAMP
+  added_at TIMESTAMP NOT NULL
 );
 
 CREATE TABLE word_links(
@@ -26,38 +26,40 @@ CREATE TABLE word_links(
   to_word_id INT NOT NULL,
   to_word_lang VARCHAR(30) NOT NULL,
   linked_by_id INT NOT NULL,
-  linked_at TIMESTAMP
-)
+  link_status INT DEFAULT 1 NOT NULL,
+  linked_at TIMESTAMP NOT NULL
+);
 
 CREATE TABLE links_rating(
   id SERIAL PRIMARY KEY,
   link_id INT NOT NULL,
   is_like BOOLEAN NOT NULL,
   added_by_id INT NOT NULL,
-  added_at TIMESTAMP
-)
+  added_at TIMESTAMP NOT NULL
+);
 
 CREATE TABLE links_comments(
   id SERIAL PRIMARY KEY,
   link_id INT NOT NULL,
   added_by_id INT NOT NULL,
-  added_at TIMESTAMP
-)
+  added_at TIMESTAMP NOT NULL
+);
 
 CREATE TABLE links_comments_rating(
   id SERIAL PRIMARY KEY,
   links_comments_id INT NOT NULL,
   is_like BOOLEAN NOT NULL,
   added_by_id INT NOT NULL,
-  added_at TIMESTAMP
-)
+  added_at TIMESTAMP NOT NULL
+);
 
 CREATE TABLE users(
   id SERIAL PRIMARY KEY,
   email VARCHAR(30) NOT NULL,
   hash_password VARCHAR(30) NOT NULL,
-  added_at TIMESTAMP
-)
+  role_id INT DEFAULT 1 NOT NULL,
+  added_at TIMESTAMP NOT NULL
+);
 
 CREATE TABLE profiles(
   id SERIAL PRIMARY KEY,
@@ -65,5 +67,14 @@ CREATE TABLE profiles(
   username VARCHAR(30),
   contacts //CUSTOM,
   info VARCHAR(130)
-)
+);
 
+CREATE TABLE links_statuses(
+  id SERIAL PRIMARY KEY,
+  status VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE user_roles(
+  id SERIAL PRIMARY KEY,
+  role VARCHAR(30) NOT NULL
+);
