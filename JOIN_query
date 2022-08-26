@@ -1,0 +1,8 @@
+SELECT 
+  users.id,
+  user_roles.role
+  FROM users
+  JOIN user_roles
+    ON users.role = user_roles.id AND users.role = 1;
+
+    
