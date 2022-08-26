@@ -3,8 +3,10 @@ SELECT
   (SELECT role FROM user_roles WHERE user_roles.id = users.role_id)
 FROM users;
 
---пока не проверял, сработает ли конкретно этот вариант. Планирую упростить функцией.
+--пока не проверял, сработает ли конкретно этот вариант. Планирую упростить поиск таблицы функцией.
 SELECT 
-  (SELECT word FROM (SELECT * FROM information_schema.tables WHERE table_schema = word_links.from_word_lang) WHERE id=from_word_id),
-  (SELECT word FROM (SELECT * FROM information_schema.tables WHERE table_schema = word_links.from_word_lang) WHERE id=from_word_id)
+  (SELECT word FROM (SELECT * FROM information_schema.tables WHERE table_schema = word_links.from_word_lang) WHERE id=from_word_id) AS word_from,
+  (SELECT word FROM (SELECT * FROM information_schema.tables WHERE table_schema = word_links.from_word_lang) WHERE id=from_word_id) AS word_to,
+  (SELECT (COUNT (is_like)) FROM links_rating WHERE links_rating.link_id = word_links.id AND is_like=TRUE) AS likes,
+  (SELECT (COUNT (is_like)) FROM links_rating WHERE links_rating.link_id = word_links.id AND is_like=FALSE) AS dislikes
   FROM word_links
