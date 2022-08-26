@@ -1,6 +1,8 @@
+--языки. Пользователи могут сами добавлять.
 CREATE TABLE russian (
   id SERIAL PRIMARY KEY,
   word VARCHAR(30) NOT NULL,
+  status_id INT DEFAULT 1 NOT NULL,
   added_by_id INT NOT NULL,
   added_at TIMESTAMP NOT NULL
 );
@@ -8,6 +10,7 @@ CREATE TABLE russian (
 CREATE TABLE english (
   id SERIAL PRIMARY KEY,
   word VARCHAR(30) NOT NULL,
+  status_id INT DEFAULT 1 NOT NULL,
   added_by_id INT NOT NULL,
   added_at TIMESTAMP NOT NULL
 );
@@ -15,10 +18,12 @@ CREATE TABLE english (
 CREATE TABLE french (
   id SERIAL PRIMARY KEY,
   word VARCHAR(30) NOT NULL,
+  status_id INT DEFAULT 1 NOT NULL,
   added_by_id INT NOT NULL,
   added_at TIMESTAMP NOT NULL
 );
 
+--связка переведенн
 CREATE TABLE word_links(
   id SERIAL PRIMARY KEY,
   from_word_id INT NOT NULL,
@@ -77,3 +82,8 @@ CREATE TABLE user_roles(
   id SERIAL PRIMARY KEY,
   role VARCHAR(30) NOT NULL
 );
+
+CREATE TABLE word_statuses(
+  id SERIAL PRIMARY KEY,
+  status VARCHAR(30) NOT NULL
+)
