@@ -3,6 +3,7 @@ SELECT
   user_roles.role
   FROM users
   JOIN user_roles
-    ON users.role = user_roles.id AND users.role = 1;
+    ON users.role = user_roles.id 
+  WHERE users.role = 1;
 
     
