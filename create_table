@@ -75,7 +75,7 @@ CREATE TABLE users(
 CREATE TABLE profiles(
   users_id INT NOT NULL PRIMARY KEY,
   username VARCHAR(30),
-  contacts //CUSTOM,
+  contacts VARCHAR(30),
   info VARCHAR(130)
 );
 
