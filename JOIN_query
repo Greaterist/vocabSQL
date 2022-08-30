@@ -5,5 +5,27 @@ SELECT
   JOIN user_roles
     ON users.role = user_roles.id 
   WHERE users.role = 1;
+  
+WITH users_count_words_links(
+SELECT DISTINCT
+    users.id,
+    COUNT(DISTINCT words.id) AS words_count,
+    COUNT(Distinct word_links.id) AS word_links_count
+    FROM users
+        LEFT JOIN words
+            ON users.id = words.added_by_id
+        LEFT JOIN word_links
+            ON users.id = word_links.added_by_id
+GROUP BY users.id
+)
+SELECT
+    id,
+    profiles.username,
+    words_count,
+    word_links_count,
+        FROM users_count_words_links
+          LEFT JOIN profiles
+            ON id=profiles.user_id
+ORDER BY id;
 
     
