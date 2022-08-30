@@ -1,23 +1,8 @@
---языки. Пользователи могут сами добавлять слова. В связи с предполагаемо большим объемом и ограниченным числом языков разделил на отдельные таблицы
-CREATE TABLE russian (
+--слова на разных языках
+CREATE TABLE words (
   id SERIAL PRIMARY KEY,
   word VARCHAR(30) NOT NULL,
-  status_id INT DEFAULT 1 NOT NULL,
-  added_by_id INT NOT NULL,
-  added_at TIMESTAMP NOT NULL
-);
-
-CREATE TABLE english (
-  id SERIAL PRIMARY KEY,
-  word VARCHAR(30) NOT NULL,
-  status_id INT DEFAULT 1 NOT NULL,
-  added_by_id INT NOT NULL,
-  added_at TIMESTAMP NOT NULL
-);
-
-CREATE TABLE french (
-  id SERIAL PRIMARY KEY,
-  word VARCHAR(30) NOT NULL,
+  word_lang VARCHAR(30) NOT NULL,
   status_id INT DEFAULT 1 NOT NULL,
   added_by_id INT NOT NULL,
   added_at TIMESTAMP NOT NULL
@@ -31,9 +16,7 @@ CREATE TABLE french (
 CREATE TABLE word_links(
   id SERIAL PRIMARY KEY,
   from_word_id INT NOT NULL,
-  from_word_lang VARCHAR(30) NOT NULL,
   to_word_id INT NOT NULL,
-  to_word_lang VARCHAR(30) NOT NULL,
   linked_by_id INT NOT NULL,
   link_status_id INT DEFAULT 1 NOT NULL,
   linked_at TIMESTAMP NOT NULL
