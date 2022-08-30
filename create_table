@@ -1,5 +1,5 @@
 --слова на разных языках
-CREATE TABLE words (
+CREATE TABLE words(
   id SERIAL PRIMARY KEY,
   word VARCHAR(30) NOT NULL,
   word_lang VARCHAR(30) NOT NULL,
