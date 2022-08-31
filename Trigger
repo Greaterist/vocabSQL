@@ -1,3 +1,4 @@
+--Функция на проверку дубликата в переводах.
 CREATE  FUNCTION add_new_link_trigger()
 RETURNS TRIGGER AS
 $$
@@ -15,6 +16,7 @@ END
 $$
 LANGUAGE PLPGSQL;
 
+--Триггер, реагирующий на добавление нового перевода
 CREATE TRIGGER check_word_links_on_update BEFORE INSERT ON word_links
   FOR EACH ROW
   EXECUTE FUNCTION add_new_link_trigger();
