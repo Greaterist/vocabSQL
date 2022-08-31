@@ -1,7 +1,7 @@
 --слова на разных языках
 CREATE TABLE words(
   id SERIAL PRIMARY KEY,
-  word VARCHAR(30) NOT NULL,
+  word VARCHAR(30) NOT NULL UNIQUE,
   word_lang_id INT NOT NULL,
   status_id INT DEFAULT 1 NOT NULL,
   added_by_id INT NOT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE users(
 -- выделил таблицу аналогично базе VK
 CREATE TABLE profiles(
   users_id INT NOT NULL PRIMARY KEY,
-  username VARCHAR(30),
+  username VARCHAR(30) UNIQUE,
   contacts VARCHAR(30),
   info VARCHAR(130)
 );
