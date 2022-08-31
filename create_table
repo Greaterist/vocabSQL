@@ -38,6 +38,7 @@ CREATE TABLE links_rating(
 CREATE TABLE links_comments(
   id SERIAL PRIMARY KEY,
   link_id INT NOT NULL,
+  comment VARCHAR(130) NOT NULL,
   added_by_id INT NOT NULL,
   added_at TIMESTAMP NOT NULL
 );
