@@ -1,0 +1,97 @@
+--слова на разных языках
+DROP TABLE IF EXISTS words;
+CREATE TABLE words(
+  id SERIAL PRIMARY KEY,
+  word VARCHAR(30) NOT NULL UNIQUE,
+  word_lang_id INT NOT NULL,
+  status_id INT DEFAULT 1 NOT NULL,
+  added_by_id INT NOT NULL,
+  added_at TIMESTAMP NOT NULL
+);
+
+DROP TABLE IF EXISTS languages;
+CREATE TABLE languages(
+  id SERIAL PRIMARY KEY,
+  language VARCHAR(30) NOT NULL
+);
+
+-- перевод слова, пользователи сами добавляют и оценивают уже существующие переводы. 
+-- при добавлении тригерром будет выполняться проверка уже существующей связи с обратном направлении
+-- (не нужна запись слова с русского на английский, если уже есть его запись с английского на русский).
+
+DROP TABLE IF EXISTS word_links;
+CREATE TABLE word_links(
+  id SERIAL PRIMARY KEY,
+  from_word_id INT NOT NULL,
+  to_word_id INT NOT NULL,
+  linked_by_id INT NOT NULL,
+  link_status_id INT DEFAULT 1 NOT NULL,
+  linked_at TIMESTAMP NOT NULL
+);
+
+-- оценка пользователями перевода  is_like BOOLEAN проверяет положительная оценка или отрицательная
+DROP TABLE IF EXISTS links_rating;
+CREATE TABLE links_rating(
+  link_id INT NOT NULL,
+  is_like BOOLEAN NOT NULL,
+  added_by_id INT NOT NULL,
+  added_at TIMESTAMP NOT NULL
+);
+
+-- комментарии для каждого перевода
+DROP TABLE IF EXISTS links_comments;
+CREATE TABLE links_comments(
+  id SERIAL PRIMARY KEY,
+  link_id INT NOT NULL,
+  comment VARCHAR(130) NOT NULL,
+  added_by_id INT NOT NULL,
+  added_at TIMESTAMP NOT NULL
+);
+
+-- оценки для комментариев
+DROP TABLE IF EXISTS links_comments_rating;
+CREATE TABLE links_comments_rating(
+  links_comments_id INT NOT NULL PRIMARY KEY,
+  is_like BOOLEAN NOT NULL,
+  added_by_id INT NOT NULL,
+  added_at TIMESTAMP NOT NULL
+);
+
+DROP TABLE IF EXISTS users;
+CREATE TABLE users(
+  id SERIAL PRIMARY KEY,
+  email VARCHAR(30) NOT NULL,
+  hash_password VARCHAR(30) NOT NULL,
+  role_id INT DEFAULT 1 NOT NULL,
+  added_at TIMESTAMP NOT NULL
+);
+
+-- выделил таблицу аналогично базе VK
+DROP TABLE IF EXISTS profiles;
+CREATE TABLE profiles(
+  users_id INT NOT NULL PRIMARY KEY,
+  username VARCHAR(30) UNIQUE,
+  contacts VARCHAR(30),
+  info VARCHAR(130)
+);
+
+-- статусы для переводов (активен (по умолчанию), заблокирован, на модерации)
+DROP TABLE IF EXISTS links_statuses;
+CREATE TABLE links_statuses(
+  id SERIAL PRIMARY KEY,
+  status VARCHAR(30) NOT NULL
+);
+
+-- роли пользователей (пользователь (по умолчанию), модератор, администратор, заблокирован)
+DROP TABLE IF EXISTS user_roles;
+CREATE TABLE user_roles(
+  id SERIAL PRIMARY KEY,
+  role VARCHAR(30) NOT NULL
+);
+
+-- статусы для слов (активен (по умолчанию), заблокирован, на модерации)
+DROP TABLE IF EXISTS word_statuses;
+CREATE TABLE word_statuses(
+  id SERIAL PRIMARY KEY,
+  status VARCHAR(30) NOT NULL
+)

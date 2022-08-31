@@ -1,0 +1,22 @@
+--Функция на проверку дубликата в переводах.
+CREATE  FUNCTION add_new_link_trigger()
+RETURNS TRIGGER AS
+$$
+DECLARE is_unique BOOLEAN;
+BEGIN
+  is_unique := NOT EXISTS(SELECT * FROM word_links 
+    WHERE (word_links.from_word_id = NEW.from_word_id AND word_links.to_word_id = NEW.to_word_id)
+      OR (word_links.from_word_id = NEW.to_word_id AND word_links.to_word_id = NEW.from_word_id)
+    );
+  IF is_unique THEN
+    RETURN NEW;
+  END IF;
+
+END
+$$
+LANGUAGE PLPGSQL;
+
+--Триггер, реагирующий на добавление нового перевода
+CREATE TRIGGER check_word_links_on_update BEFORE INSERT ON word_links
+  FOR EACH ROW
+  EXECUTE FUNCTION add_new_link_trigger();

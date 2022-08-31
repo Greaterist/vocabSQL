@@ -1,0 +1,69 @@
+ALTER TABLE words
+    ADD CONSTRAINT words_status_id_fk
+    FOREIGN KEY (status_id)
+    REFERENCES word_statuses(id);
+    
+ALTER TABLE words
+    ADD CONSTRAINT words_word_lang_id_fk
+    FOREIGN KEY (word_lang_id)
+    REFERENCES languages(id);
+    
+ALTER TABLE word_links
+    ADD CONSTRAINT word_links_from_word_id_fk
+    FOREIGN KEY (from_word_id)
+    REFERENCES words(id);
+    
+ALTER TABLE word_links
+    ADD CONSTRAINT word_links_to_word_id_fk
+    FOREIGN KEY (to_word_id)
+    REFERENCES words(id);
+
+ALTER TABLE word_links
+    ADD CONSTRAINT word_links_linked_by_id_fk
+    FOREIGN KEY (linked_by_id)
+    REFERENCES users(id);
+    
+ALTER TABLE word_links
+    ADD CONSTRAINT word_links_link_status_id_fk
+    FOREIGN KEY (link_status_id)
+    REFERENCES links_statuses(id);
+
+ALTER TABLE links_rating
+    ADD CONSTRAINT links_rating_link_id_fk
+    FOREIGN KEY (link_id)
+    REFERENCES word_links(id);
+    
+ALTER TABLE links_rating
+    ADD CONSTRAINT links_rating_added_by_id_fk
+    FOREIGN KEY (added_by_id)
+    REFERENCES users(id);
+    
+ALTER TABLE links_comments
+    ADD CONSTRAINT links_comments_link_id_fk
+    FOREIGN KEY (link_id)
+    REFERENCES word_links(id);
+    
+ALTER TABLE links_comments
+    ADD CONSTRAINT links_comments_added_by_id_fk
+    FOREIGN KEY (added_by_id)
+    REFERENCES users(id);
+    
+ALTER TABLE links_comments_rating
+    ADD CONSTRAINT links_comments_rating_links_comments_id_fk
+    FOREIGN KEY (links_comments_id)
+    REFERENCES links_comments(id);    
+    
+ALTER TABLE links_comments_rating
+    ADD CONSTRAINT links_comments_rating_added_by_id_fk
+    FOREIGN KEY (added_by_id)
+    REFERENCES users(id);
+    
+ALTER TABLE users
+    ADD CONSTRAINT users_role_id_fk
+    FOREIGN KEY (role_id)
+    REFERENCES user_roles(id);
+    
+ALTER TABLE profiles
+    ADD CONSTRAINT profiles_users_id_fk
+    FOREIGN KEY (users_id)
+    REFERENCES users(id);

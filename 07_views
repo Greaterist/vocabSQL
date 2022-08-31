@@ -1,0 +1,35 @@
+CREATE VIEW word_links_twosided AS (
+  SELECT
+    id,
+    from_word_id,
+    to_word_id,
+    linked_by_id,
+    link_status_id,
+    linked_at 
+  FROM word_links
+  
+  UNION ALL
+  
+  SELECT
+    id,
+    from_word_id AS to_word_id,
+    to_word_id AS from_word_id,
+    linked_by_id,
+    link_status_id,
+    linked_at 
+  FROM word_links
+  
+);
+    
+    
+    
+CREATE VIEW words_full_info AS (
+  SELECT 
+    id,
+    word,
+    (SELECT language FROM languages WHERE words.word_lang_id = languages.id) AS language,
+    (SELECT status FROM word_statuses WHERE words.status_id = word_statuses.id) AS status,
+    added_by_id,
+    added_at
+  FROM words
+);
