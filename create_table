@@ -28,7 +28,7 @@ CREATE TABLE word_links(
 
 -- оценка пользователями перевода  is_like BOOLEAN проверяет положительная оценка или отрицательная
 CREATE TABLE links_rating(
-  link_id INT NOT NULL PRIMARY KEY,
+  link_id INT NOT NULL,
   is_like BOOLEAN NOT NULL,
   added_by_id INT NOT NULL,
   added_at TIMESTAMP NOT NULL
