@@ -19,7 +19,7 @@ CREATE VIEW word_links_twosided AS (
     linked_at 
   FROM word_links
   
-)
+);
     
     
     
@@ -31,5 +31,5 @@ CREATE VIEW words_full_info AS (
     (SELECT status FROM word_statuses WHERE words.status_id = word_statuses.id) AS status,
     added_by_id,
     added_at
-  FROM words;
-)
+  FROM words
+);

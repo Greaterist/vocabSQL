@@ -1,12 +1,15 @@
+--Список пользователей вместе с ролями
 SELECT 
   users.id,
   user_roles.role
   FROM users
   JOIN user_roles
-    ON users.role = user_roles.id 
-  WHERE users.role = 1;
-  
-WITH users_count_words_links(
+    ON users.role_id = user_roles.id 
+  WHERE users.role_id = 1;
+
+
+--Сколько каждый пользователь добавил слов и переводов
+WITH users_count_words_links AS (
 SELECT DISTINCT
     users.id,
     COUNT(DISTINCT words.id) AS words_count,
@@ -15,17 +18,17 @@ SELECT DISTINCT
         LEFT JOIN words
             ON users.id = words.added_by_id
         LEFT JOIN word_links
-            ON users.id = word_links.added_by_id
+            ON users.id = word_links.linked_by_id
 GROUP BY users.id
 )
 SELECT
     id,
     profiles.username,
     words_count,
-    word_links_count,
+    word_links_count
         FROM users_count_words_links
           LEFT JOIN profiles
-            ON id=profiles.user_id
+            ON id=profiles.users_id
 ORDER BY id;
 
     

@@ -1,5 +1,5 @@
 SELECT 
-  (SELECT username FROM profiles WHERE profiles.user_id = users.id),
+  (SELECT username FROM profiles WHERE profiles.users_id = users.id),
   (SELECT role FROM user_roles WHERE user_roles.id = users.role_id)
 FROM users;
 
