@@ -1,1 +1,6 @@
-
+INSERT INTO user_roles (role)
+VALUES
+  ("user"),
+  ("moderator"),
+  ("administrator"),
+  ("blocked");
