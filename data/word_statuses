@@ -1,5 +1,0 @@
-INSERT INTO word_statuses (status)
-VALUES
-  ("Active"),
-  ("Blocked"),
-  ("On moderation");

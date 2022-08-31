@@ -1,0 +1,40 @@
+
+EXPLAIN ANALYZE WITH users_count_words_links AS (
+SELECT DISTINCT
+    users.id,
+    COUNT(DISTINCT words.id) AS words_count,
+    COUNT(Distinct word_links.id) AS word_links_count
+    FROM users
+        LEFT JOIN words
+            ON users.id = words.added_by_id
+        LEFT JOIN word_links
+            ON users.id = word_links.linked_by_id
+GROUP BY users.id
+)
+SELECT
+    id,
+    profiles.username,
+    words_count,
+    word_links_count
+        FROM users_count_words_links
+          LEFT JOIN profiles
+            ON id=profiles.users_id
+ORDER BY id;
+
+--Изначальная скорость выполнения:
+--Planning Time: 2.073 ms
+--Execution Time: 7.644 ms
+
+
+--Добавлены индексы для столбцов, по которым объединяются таблицы:
+
+create index words_added_by_id_pk on words (added_by_id);
+create index word_links_linked_by_id_pk on word_links (linked_by_id);
+create index profiles_users_id_pk on profiles (users_id);
+
+--В связи с небольшим количеством данных в таблицах, добавил следующую команду для отключения последовательного сканирования:
+set enable_seqscan to OFF;
+
+--Результат:
+--Planning Time: 2.623 ms
+--Execution Time: 7.115 ms

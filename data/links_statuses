@@ -1,5 +1,0 @@
-INSERT INTO links_statuses (status)
-VALUES
-  ("Active"),
-  ("Blocked"),
-  ("On moderation");
